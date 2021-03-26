@@ -8,11 +8,11 @@ const {
 
   listSchool,
   SchoolById,
-} = require("../controllers/userController");
+} = require("../controllers/UserController");
 
 //const { registerRules, validator } = require("../middleware/Validator");
 
-const isAuth = require("../middleware/Passport");
+const isAuthuser = require("../middleware/PassportUser");
 
 const router = express.Router();
 /*registerRules(), validator*/
@@ -25,7 +25,7 @@ router.post("/devis", devis);
 router.post("/contact", contact);
 router.post("/newSletter", newSletter);
 
-router.get("/current", isAuth(), (req, res) => {
+router.get("/current", isAuthuser(), (req, res) => {
   res.json(req.authAdmin);
 });
 

@@ -40,14 +40,14 @@ export const getSchoolById = (id) => (dispatch) => {
 };
 
 export const userRegister = (newUser) => async (dispatch) => {
-  console.log(newUser);
+  //console.log(newUser);
   // dispatch({ type: USER_REGISTER });
 
   try {
     const userAdd = await axios.post("/user/register", newUser);
     console.log(userAdd);
     dispatch({ type: USER_REGISTER_SUCCESS, payload: userAdd.data });
-    await dispatch(userLogin(userAdd));
+    //await dispatch(userLogin(userAdd));
   } catch (error) {
     dispatch({ type: USER_REGISTER_FAIL, payload: error.response.data });
   }
@@ -55,13 +55,14 @@ export const userRegister = (newUser) => async (dispatch) => {
 
 export const userLogin = (loginCred) => async (dispatch) => {
   dispatch({ type: USER_LOGIN });
-  console.log(loginCred);
+  //console.log(loginCred);
 
   try {
     const userLogin = await axios.post("/user/login", loginCred);
-
+    console.log(userLogin);
     localStorage.setItem("token", userLogin.data.token);
 
+    console.log(userLogin);
     dispatch({ type: USER_LOGIN_SUCCESS, payload: userLogin.data.token });
   } catch (error) {
     dispatch({ type: USER_LOGIN_FAIL, payload: error.response.data });

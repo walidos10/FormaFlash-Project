@@ -40,17 +40,13 @@ exports.register = async (req, res) => {
     pays,
     email,
     password,
-    image,
     phoneNumber,
   } = req.body;
 
   const searchResult = await User.findOne({ email });
 
   if (searchResult) return res.status(401).json({ msg: "User already existe" });
-  const salt = await bcrypt.genSalt(10);
-  const hash = await bcrypt.hash(password, salt);
 
-  newUser.password = hash;
   try {
     const newUser = new User({
       name,
@@ -59,7 +55,6 @@ exports.register = async (req, res) => {
       pays,
       email,
       password,
-      image,
       phoneNumber,
     });
 
@@ -78,14 +73,13 @@ exports.register = async (req, res) => {
 
 exports.login = async (req, res) => {
   const { email, password } = req.body;
-
+  console.log(req.body);
   const user = await User.findOne({ email });
-  // console.log("server user" + user);
 
   if (!user) return res.status(400).json({ msg: "Wrong email" });
 
   const isMatch = await bcrypt.compare(password, user.password);
-
+  console.log(user);
   if (!isMatch) return res.status(400).json({ msg: "Wrong password" });
 
   try {
@@ -104,7 +98,6 @@ exports.login = async (req, res) => {
     res.status(500).json({ msg: "Login fail" });
   }
 };
-
 exports.devis = async (req, res) => {
   const {
     name,

@@ -134,9 +134,9 @@ export const addSchool = (newSchool) => async (dispatch) => {
 ///////////// getSejour
 
 export const getSejour = () => async (dispatch) => {
-  /* dispatch(userLogin());
+  /*dispatch(userLogin());
   dispatch(getProfile());*/
-  // dispatch({ type: GET_SEJOUR });
+  dispatch({ type: GET_SEJOUR });
 
   const token = localStorage.getItem("token");
 

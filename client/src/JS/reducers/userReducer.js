@@ -25,6 +25,7 @@ const initialState = {
   isAuth: false,
   school: [],
   image: [],
+  user: [],
 };
 
 const userReducer = (state = initialState, { type, payload }) => {

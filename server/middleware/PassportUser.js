@@ -1,7 +1,7 @@
 const JwtStrategy = require("passport-jwt").Strategy;
 const ExtractJwt = require("passport-jwt").ExtractJwt;
 
-const Admin = require("../models/Admin");
+const User = require("../models/Admin");
 
 //const User = require("../models/User");
 
@@ -22,7 +22,7 @@ passport.use(
     const { id } = jwt_payload;
 
     try {
-      const authAdmin = await Admin.findById({ _id: id });
+      const authAdmin = await User.findById({ _id: id });
 
       console.log(authAdmin);
 
@@ -35,5 +35,5 @@ passport.use(
   })
 );
 
-module.exports = isAuth = () =>
+module.exports = isAuthuser = () =>
   passport.authenticate("jwt", { session: false });
