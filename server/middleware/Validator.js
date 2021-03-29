@@ -2,10 +2,9 @@ const { check, validationResult } = require("express-validator");
 
 exports.registerRules = () => [
   check("name", "This field is required").notEmpty(),
+  check("prenom", "This field is required").notEmpty(),
+  check("profession", "This field is required").notEmpty(),
   check("pays", "This field is required").notEmpty(),
-  check("ville", "This field is required").notEmpty(),
-  check("langue", "This field is required").notEmpty(),
-  check("programme", "This field is required").notEmpty(),
 
   check("email", "This field is required").notEmpty(),
   check("email", "This is not a valid email").isEmail(),
@@ -13,6 +12,7 @@ exports.registerRules = () => [
     min: 6,
     max: 30,
   }),
+
   check("password", "This is not a valid password").isLength({ min: 4 }),
 ];
 

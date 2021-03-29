@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const School = require("../models/School");
+const Sejour = require("../models/Sejours");
 
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -9,6 +10,26 @@ const Newsletter = require("../models/Newsletter");
 require("dotenv").config({ path: "./config/.env" });
 const secretOrKey = process.env.secretOrKey;
 
+exports.listSejour = async (req, res) => {
+  try {
+    const sejour = await Sejour.find();
+    res.status(201).json({ msg: "Sejour successfully", sejour });
+  } catch (error) {
+    console.log(error);
+    res.status(501).json({ msg: "Sejour  fail" });
+  }
+};
+exports.SejourById = async (req, res) => {
+  let { _id } = req.params;
+  try {
+    let sejour = await Sejour.find({ _id });
+
+    res.status(201).json({ msg: "Sejour successfully", sejour });
+  } catch (error) {
+    console.log(error);
+    res.status(501).json({ msg: "Sejour  fail" });
+  }
+};
 exports.listSchool = async (req, res) => {
   try {
     const school = await School.find();
@@ -59,9 +80,7 @@ exports.register = async (req, res) => {
     });
 
     const salt = await bcrypt.genSalt(10);
-    const hash = await bcrypt.hash(password, salt);
-
-    newUser.password = hash;
+    newUser.password = await bcrypt.hash(password, salt);
 
     await newUser.save();
     res.status(201).json({ msg: "User added successfully" });
@@ -76,11 +95,17 @@ exports.login = async (req, res) => {
   console.log(req.body);
   const user = await User.findOne({ email });
 
-  if (!user) return res.status(400).json({ msg: "Wrong email" });
-
+  if (!user)
+    return res
+      .status(400)
+      .json({ msg: "Sorry, Wrong email and your password was incorrect" });
   const isMatch = await bcrypt.compare(password, user.password);
-  console.log(user);
-  if (!isMatch) return res.status(400).json({ msg: "Wrong password" });
+  console.log(user.password, isMatch);
+  if (!isMatch) {
+    return res.status(400).json({
+      msg: "Sorry, Wrong email and your password was incorrect",
+    });
+  }
 
   try {
     const payload = {

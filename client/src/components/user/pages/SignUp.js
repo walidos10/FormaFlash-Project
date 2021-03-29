@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { userLogin, userRegister } from "../../../JS/actions/user";
@@ -13,6 +13,8 @@ const SignUp = () => {
     document.getElementById("container").classList.add("right-panel-active");
   }
   const [signIn, setsignIn] = useState({ email: "", password: "" });
+  const [signAuto, setsignAuto] = useState({ email: "", password: "" });
+
   const [signUp, setsignUp] = useState({
     name: "",
     prenom: "",
@@ -25,15 +27,22 @@ const SignUp = () => {
   const errors = useSelector((state) => state.userReducer.errors);
   const isAuth = useSelector((state) => state.userReducer.isAuth);
   const loading = useSelector((state) => state.userReducer.loading);
-
+  const locst = useSelector((state) => state.userReducer.locst);
+  const [state, setstate] = useState(0);
   const dispatch = useDispatch();
   const register = (signUp) => {
     dispatch(userRegister(signUp));
+    dispatch(userLogin(signAuto));
   };
 
   const login = (signIn) => {
     dispatch(userLogin(signIn));
   };
+  //let x = localStorage.getItem("token").length;
+  //console.log(x);
+  //useEffect(() => {
+  //setstate(localStorage.getItem("token").length);
+  //}, []);
   return isAuth ? (
     <Redirect to="/profileUser" />
   ) : loading ? (
@@ -104,6 +113,10 @@ const SignUp = () => {
                 placeholder="Email"
                 onChange={(e) => {
                   setsignUp({ ...signUp, email: e.target.value });
+                  setsignAuto({
+                    ...signAuto,
+                    email: e.target.value,
+                  });
                 }}
               />
               <input
@@ -120,6 +133,10 @@ const SignUp = () => {
                 name="password"
                 onChange={(e) => {
                   setsignUp({ ...signUp, password: e.target.value });
+                  setsignAuto({
+                    ...signAuto,
+                    password: e.target.value,
+                  });
                 }}
               />
 

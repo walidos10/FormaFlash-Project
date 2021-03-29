@@ -21,51 +21,9 @@ function Home() {
 
   const dispatch = useDispatch();
   const school = useSelector((state) => state.userReducer.school);
-  /*function getUniqueListBy(arr, key) {
-    return [...new Map(arr.map((item) => [...item[key], item])).values()];
-  }
-  const pays = getUniqueListBy(school, "pays");
-  const langue = getUniqueListBy(school, "langue");*/
-
-  //console.log("pays:" + JSON.stringify(pays));
-
-  //console.log("pays:" + JSON.stringify(langue));
-
-  /*
-   const [statePays, setstatePays] = useState({
-     src: "",
-     text: "",
-     label: "",
-     path: "",
-   });
-  
-  
-*/
-  //console.log(school);
-  /*let history = useHistory();*/
-
-  useEffect(
-    () => {
-      dispatch(getSchool());
-      /*setstateLangue({
-        src: "",
-        text: "",
-        label: "",
-        path: "",
-      });
-      const [statePays, setstatePays] = useState({
-        src: "",
-        text: "",
-        label: "",
-        path: "",
-      });*/
-      //console.log(school);
-
-      //  console.log(school[0].pays);
-      /* history.push(school);*/
-    },
-    /* [history]*/ []
-  );
+  useEffect(() => {
+    dispatch(getSchool());
+  });
   return (
     <>
       <HeroSection />

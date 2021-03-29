@@ -8,7 +8,7 @@ const userSchema = new schema({
   profession: { type: String, require: true, lowercase: true, trim: true },
   pays: { type: String, require: true, lowercase: true, trim: true },
   email: { type: String, require: true, lowercase: true, trim: true },
-  password: { type: String, require: true, lowercase: true, trim: true },
+  password: { type: String, require: true, trim: true },
   image: { type: String, lowercase: true, trim: true },
   phoneNumber: { type: Number, require: true, trim: true },
 });

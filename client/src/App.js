@@ -33,7 +33,7 @@ export const villeContext = React.createContext();
 function App() {
   const dispatch = useDispatch();
   let school = useSelector((state) => state.adminReducer.school);
-  let sejour = useSelector((state) => state.adminReducer.sejour);
+  let sejour = useSelector((state) => state.userReducer.sejour);
   function getUniqueListBy(arr, key) {
     return [...new Map(arr.map((item) => [...item[key], item])).values()];
   }

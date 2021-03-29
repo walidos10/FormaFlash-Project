@@ -19,7 +19,10 @@ import {
   GET_PROFILE,
   GET_PROFILE_SUCCESS,
   GET_PROFILE_FAIL,
-  ADD_SCHOOL_FAIL,
+  GET_SEJOUR_SUCCESS,
+  GET_SEJOUR_BY_ID,
+  GET_SEJOUR_FAIL,
+  GET_SEJOUR,
 } from "../constants/actionsType";
 import axios from "axios";
 //import { RiEmpathizeLine } from "react-icons/ri";
@@ -38,7 +41,21 @@ export const getSchoolById = (id) => (dispatch) => {
     .get(`/user/listSchool/${id}`)
     .then((res) => dispatch({ type: GET_SCHOOL_BY_ID, payload: res.data }));
 };
+export const getSejour = () => async (dispatch) => {
+  /* dispatch(userLogin());
+  dispatch(getProfile());*/
+  dispatch({ type: GET_SEJOUR });
 
+  axios
+    .get("/user/listSejour")
+    .then((res) => dispatch({ type: GET_SEJOUR_SUCCESS, payload: res.data }))
+    .catch((err) => console.log(err));
+};
+export const getSejourById = (id) => (dispatch) => {
+  axios
+    .get(`/user/listSejour/${id}`)
+    .then((res) => dispatch({ type: GET_SEJOUR_BY_ID, payload: res.data }));
+};
 export const userRegister = (newUser) => async (dispatch) => {
   //console.log(newUser);
   // dispatch({ type: USER_REGISTER });

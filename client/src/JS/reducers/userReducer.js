@@ -17,6 +17,8 @@ import {
   GET_SCHOOL,
   GET_SCHOOL_SUCCESS,
   GET_SCHOOL_BY_ID,
+  GET_SEJOUR_SUCCESS,
+  GET_SEJOUR_BY_ID,
 } from "../constants/actionsType";
 
 const initialState = {
@@ -24,8 +26,10 @@ const initialState = {
   errors: null,
   isAuth: false,
   school: [],
+  sejour: [],
   image: [],
   user: [],
+  locSt: false,
 };
 
 const userReducer = (state = initialState, { type, payload }) => {
@@ -66,16 +70,23 @@ const userReducer = (state = initialState, { type, payload }) => {
         loading: false,
         isAuth: true,
         token: payload,
+        locSt: true,
       };
 
     case GET_SCHOOL_SUCCESS:
     case GET_SCHOOL_BY_ID:
       return { ...state, loading: false, school: payload.school };
+    case GET_SEJOUR_BY_ID:
+    case GET_SEJOUR_SUCCESS:
+      return { ...state, loading: false, sejour: payload.sejour };
+
     case GET_PROFILE_SUCCESS:
       return {
         ...state,
         loading: false,
         isAuth: true,
+        locSt: true,
+
         user: payload,
       };
     case ADD_NEWSLETTER:

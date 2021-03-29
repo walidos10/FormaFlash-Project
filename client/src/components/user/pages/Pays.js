@@ -3,7 +3,9 @@ import React from "react";
 import { useEffect, useContext } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { getSchool, getSejour } from "../../../JS/actions/admin";
+//import { getSchool, getSejour } from "../../../JS/actions/admin";
+import { getSchool, getSejour } from "../../../JS/actions/user";
+
 import SchoolCard from "../../admin/SchoolCard";
 import CardItem from "../CardItem";
 import { Link } from "react-router-dom";
@@ -11,25 +13,31 @@ import { villeContext } from "../../../App";
 
 const Pays = ({ match }) => {
   const dispatch = useDispatch();
-  let school = useSelector((state) => state.adminReducer.school);
-  let sejour = useSelector((state) => state.adminReducer.sejour);
-  // console.log(school);
-  let ville = useContext(villeContext);
+
   useEffect(() => {
     dispatch(getSchool());
     dispatch(getSejour());
-    //console.log(sejour[0].langue);
+
+    //  console.log(sejour[0].langue);
   }, []);
-  //console.log(match.params.id);
+  let school = useSelector((state) => state.userReducer.school);
+  let sejour = useSelector((state) => state.userReducer.sejour);
+  //let desc = useSelector((state) => state.userReducer.sejour[0].description1);
+
+  // console.log(sejour[0]);
+  let ville = useContext(villeContext);
 
   ville = ville.filter((school) => school.pays[0] === match.params.id);
-  // sejour = sejour.filter((sejour) => sejour.pays[0] === match.params.id);
-  ///let desc = sejour[0].description1;
-  //console.log(desc);
+  //let langue = { ...ville, langue };
+  //console.log(langue);
+  sejour = sejour.filter((sejour) => sejour.pays[0] === match.params.id);
+
+  //let desc = sejour[0].description1;
+  //console.log(sejour[0]);
   return (
     <div>
       <h2 style={{ marginTop: "20px" }}>
-        {/*`Learn ${sejour[0].langue}  in the ${match.params.id}`*/}
+        {`Learn  in the ${match.params.id}`}
       </h2>{" "}
       <p
         style={{

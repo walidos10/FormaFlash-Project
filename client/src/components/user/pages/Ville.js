@@ -4,14 +4,19 @@ import { useEffect, useContext } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { villeContext } from "../../../App";
-import { getSchool, getSejour } from "../../../JS/actions/admin";
+import { getSchool, getSejour } from "../../../JS/actions/user";
 import SchoolCard from "../../admin/SchoolCard";
 import CardItem from "../CardItem";
 
 const Ville = ({ match }) => {
   const dispatch = useDispatch();
-  let school = useSelector((state) => state.adminReducer.school);
-  let sejour = useSelector((state) => state.adminReducer.sejour);
+  useEffect(() => {
+    dispatch(getSchool());
+    dispatch(getSejour());
+    // console.log(sejour);
+  }, []);
+  let school = useSelector((state) => state.userReducer.school);
+  let sejour = useSelector((state) => state.userReducer.sejour);
 
   console.log(school);
   let ville = useContext(villeContext);
@@ -24,14 +29,14 @@ const Ville = ({ match }) => {
   //console.log(match.params.id);
 
   ville = ville.filter((school) => school.ville[0] === match.params.id);
-  //sejour = sejour.filter((sejour) => sejour.ville[0] === match.params.id);
-  //let desc = sejour[0].description2;
+  sejour = sejour.filter((sejour) => sejour.ville[0] === match.params.id);
+  let desc = sejour[0].description2;
   //console.log(sejour);
   // console.log(school[0].image[0]);
   return (
     <div>
       <h2 style={{ marginTop: "20px" }}>
-        {/*`Learn ${sejour[0].langue}  in the ${match.params.id}`*/}
+        {`Learn ${sejour[0].langue}  in the ${match.params.id}`}
       </h2>{" "}
       <p
         style={{
@@ -39,7 +44,7 @@ const Ville = ({ match }) => {
           fontFamily: "Arial",
         }}
       >
-        {/*desc*/}{" "}
+        {desc}{" "}
       </p>
       <div
         style={{
